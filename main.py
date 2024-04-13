@@ -48,6 +48,4 @@ while True:
     # Exiting the program
     except KeyboardInterrupt:
             print("\nQuitting, have fun!"+colors.RESET)
-            break
-
-        
+            break        
