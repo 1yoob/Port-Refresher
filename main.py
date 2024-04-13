@@ -1,4 +1,4 @@
-# Credits to where credit's due (Me ofc :) 1yoob)
+# Credits to where credit's due Me ofc 1yoob :/
 
 # Importing the libraries
 from socket import getservbyname, getservbyport
