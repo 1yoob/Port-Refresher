@@ -1,10 +1,11 @@
-# Credits to where credit's due Me ofc 1yoob :/
+# Credits to where credit's due (Me ofc :) 1yoob)
 
 # Importing the libraries
 from socket import getservbyname, getservbyport
-
+from time import sleep
 # Colors to beautify the program
 class colors:
+    MAGENTA = '\033[95m'
     RED = '\033[91m'
     YELLOW = '\033[93m'
     ORANGE = '\033[38;5;208m'  
@@ -20,32 +21,38 @@ _  ____/ / /_/ /_  /    / /_         _  _, _/ /  __/_  __/  _  /    /  __/_(__  
                                                                                                         
 ''')
 
+# Formatting game inputs and outputs
+def respond(response):
+    print(f'''\033[F{colors.MAGENTA}║ {colors.YELLOW}port: {colors.YELLOW}{port}{(length-9-len(str(port)))*" "}{colors.MAGENTA}║''')
+    print(f'''{colors.MAGENTA}║ {colors.ORANGE}{response}{(length-3-len(str(response)))*" "}{colors.MAGENTA}║\n{colors.MAGENTA}╚{(length-2)*'═'}╝{colors.RESET}''')
+
 # The main program
 while True:
+    length = 40
     # Taking input
     try:
-        port = input(f"{colors.YELLOW}port: {colors.ORANGE}")
+        print(f"{colors.MAGENTA}╔{(length-2)*'═'}╗")
+        port = input(f"{colors.MAGENTA}║ {colors.YELLOW}port: {colors.YELLOW}")
         
         # distinguishing input between "str" or "int"
         try:
             response = getservbyport(int(port))
             # Answering with name of port
-            print(f"{colors.YELLOW}---> {colors.ORANGE}{response}")
-
-        except ValueError:
+            respond(response)
+        except (ValueError, OverflowError, OSError):
             try:
                 #  Answering with number of port
                 response = getservbyname(port.lower())
-                print(f"{colors.YELLOW}---> {colors.ORANGE}{response}")
+                respond(response)
                 # Handling exception where port name doesn't exist
-            except OSError:
-                print(f"{colors.RED}port {port} does not exist")
-
-        # Handling exception where port number doesn't exist
-        except OSError:
-            print(f"{colors.RED}port {port} does not exist")
+            except (ValueError, OverflowError, OSError):
+                response=f"port {port} does not exist"
+                respond(response)
             
     # Exiting the program
     except KeyboardInterrupt:
-            print("\nQuitting, have fun!"+colors.RESET)
-            break        
+            port = "quit"
+            response = "Quitting have fun!"
+            respond(response)
+            sleep(2)
+            break
