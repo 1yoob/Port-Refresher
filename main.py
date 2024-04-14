@@ -52,7 +52,7 @@ while True:
     # Exiting the program
     except KeyboardInterrupt:
             port = "quit"
-            response = "Quitting have fun!"
+            response = "Quitting, have fun!"
             respond(response)
             sleep(2)
             break
